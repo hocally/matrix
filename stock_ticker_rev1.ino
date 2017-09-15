@@ -1,9 +1,6 @@
 #include <ESP8266WiFi.h>
 
-// standard ascii 5x7 font
-// defines ascii characters 0x20-0x7F (32-127)
-
-static unsigned char Font5x7[][95] = {
+static unsigned char Font5x7[][93] = {
   {0x00, 0x00, 0x00, 0x00, 0x00},// (space)
   {0x00, 0x00, 0x5F, 0x00, 0x00},// !
   {0x00, 0x07, 0x00, 0x07, 0x00},// "
@@ -98,8 +95,6 @@ static unsigned char Font5x7[][95] = {
   {0x00, 0x08, 0x36, 0x41, 0x00},// {
   {0x00, 0x00, 0x7F, 0x00, 0x00},// |
   {0x00, 0x41, 0x36, 0x08, 0x00},// }
-  {0x08, 0x08, 0x2A, 0x1C, 0x08},// ->
-  {0x08, 0x1C, 0x2A, 0x08, 0x08} // <-
 };
 
 const char* ssid = "UofM-Guest";
@@ -118,6 +113,7 @@ const char* keys[][11] = {
   {"R9AR12CVSBAN9J02", "W1PKJKUJJDTJCAQ3"},
   {"HZ8PRQNKQV1VX7P3", "M4SKC0BCFO5NK16M"}
 };
+String payload = "";
 /* Order of keys
    0. Stock symbol
    1. Stock price, change, percentage
@@ -135,16 +131,12 @@ const char* keys[][11] = {
    8. AMZN
    9. APPL
    10. TSLA
-   
 */
-
-
 
 void setup()
 {
   Serial.begin(115200);
   Serial.println();
-
   Serial.printf("Connecting to %s ", ssid);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED)
@@ -165,9 +157,6 @@ void loop()
       //Serial.printf("\n[Connecting to %s ... ", host);
       if (client.connect(host, 80))
       {
-        //Serial.println("connected]");
-
-        //Serial.println("[Sending a request]");
         client.print(String("GET /") + "/apps/thinghttp/send_request?api_key=" + keys[i][j] + "\r\n" +
                      "Host:" + host + "\r\n" +
                      "Connection: close\r\n" +
@@ -184,16 +173,303 @@ void loop()
           }
         }
         client.stop();
-        //Serial.println();
       }
       else
       {
         Serial.println("connection failed!]");
         client.stop();
       }
+      the
       delay(2000);
     }
     Serial.println();
   }
   Serial.println();
+}
+
+int charSwitcher (char c) {
+  switch (c) {
+    case ' ':
+      return 0;
+      break;
+    case '!':
+      return 1;
+      break;
+    case '\"':
+      return 2;
+      break;
+    case '#':
+      return 3;
+      break;
+    case '$':
+      return 4;
+      break;
+    case '%':
+      return 5;
+      break;
+    case '&':
+      return 6;
+      break;
+    case '\'':
+      return 7;
+      break;
+    case '(':
+      return 8;
+      break;
+    case ')':
+      return 9;
+      break;
+    case '*':
+      return 10;
+      break;
+    case '+':
+      return 11;
+      break;
+    case ',':
+      return 12;
+      break;
+    case '-':
+      return 13;
+      break;
+    case '.':
+      return 14;
+      break;
+    case '/':
+      return 15;
+      break;
+    case '0':
+      return 16;
+      break;
+    case '1':
+      return 17;
+      break;
+    case '2':
+      return 18;
+      break;
+    case '3':
+      return 19;
+      break;
+    case '4':
+      return 20;
+      break;
+    case '5':
+      return 21;
+      break;
+    case '6':
+      return 22;
+      break;
+    case '7':
+      return 23;
+      break;
+    case '8':
+      return 24;
+      break;
+    case '9':
+      return 25;
+      break;
+    case ':':
+      return 26;
+      break;
+    case ';':
+      return 27;
+      break;
+    case '<':
+      return 28;
+      break;
+    case '=':
+      return 29;
+      break;
+    case '>':
+      return 30;
+      break;
+    case '?':
+      return 31;
+      break;
+    case '@':
+      return 32;
+      break;
+    case 'A':
+      return 33;
+      break;
+    case 'B':
+      return 34;
+      break;
+    case 'C':
+      return 35;
+      break;
+    case 'D':
+      return 36;
+      break;
+    case 'E':
+      return 37;
+      break;
+    case 'F':
+      return 38;
+      break;
+    case 'G':
+      return 39;
+      break;
+    case 'H':
+      return 40;
+      break;
+    case 'I':
+      return 41;
+      break;
+    case 'J':
+      return 42;
+      break;
+    case 'K':
+      return 43;
+      break;
+    case 'L':
+      return 44;
+      break;
+    case 'M':
+      return 45;
+      break;
+    case 'N':
+      return 46;
+      break;
+    case 'O':
+      return 47;
+      break;
+    case 'P':
+      return 48;
+      break;
+    case 'Q':
+      return 49;
+      break;
+    case 'R':
+      return 50;
+      break;
+    case 'S':
+      return 51;
+      break;
+    case 'T':
+      return 52;
+      break;
+    case 'U':
+      return 53;
+      break;
+    case 'V':
+      return 54;
+      break;
+    case 'W':
+      return 55;
+      break;
+    case 'X':
+      return 56;
+      break;
+    case 'Y':
+      return 57;
+      break;
+    case 'Z':
+      return 58;
+      break;
+    case '[':
+      return 59;
+      break;
+    case '\\':
+      return 60;
+      break;
+    case ']':
+      return 61;
+      break;
+    case '^':
+      return 62;
+      break;
+    case '_':
+      return 63;
+      break;
+    case '`':
+      return 64;
+      break;
+    case 'a':
+      return 65;
+      break;
+    case 'b':
+      return 66;
+      break;
+    case 'c':
+      return 67;
+      break;
+    case 'd':
+      return 68;
+      break;
+    case 'e':
+      return 69;
+      break;
+    case 'f':
+      return 70;
+      break;
+    case 'g':
+      return 71;
+      break;
+    case 'h':
+      return 72;
+      break;
+    case 'i':
+      return 73;
+      break;
+    case 'j':
+      return 74;
+      break;
+    case 'k':
+      return 75;
+      break;
+    case 'l':
+      return 76;
+      break;
+    case 'm':
+      return 77;
+      break;
+    case 'n':
+      return 78;
+      break;
+    case 'o':
+      return 79;
+      break;
+    case 'p':
+      return 80;
+      break;
+    case 'q':
+      return 81;
+      break;
+    case 'r':
+      return 82;
+      break;
+    case 's':
+      return 83;
+      break;
+    case 't':
+      return 84;
+      break;
+    case 'u':
+      return 85;
+      break;
+    case 'v':
+      return 86;
+      break;
+    case 'w':
+      return 87;
+      break;
+    case 'x':
+      return 88;
+      break;
+    case 'y':
+      return 89;
+      break;
+    case 'z':
+      return 90;
+      break;
+    case '{':
+      return 91;
+      break;
+    case '|':
+      return 92;
+      break;
+    case '}':
+      return 93;
+      break;
+  }
 }
